@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/QLCV"
+        android:title="Quản lý công việc"
+        android:icon="@drawable/baseline_edit_calendar_24"/>
+    <item
+        android:id="@+id/GT"
+        android:title="Giới thiệu"
+        android:icon="@drawable/baseline_info_24"/>
+    <item android:title="khác">
+        <menu>
+            <item
+                android:title="Cài đặt"
+                android:id="@+id/CaiDat"
+                android:icon="@drawable/baseline_settings_24"
+                />
+            <item
+                android:title="Đăng xuất"
+                android:id="@+id/DangXuat"
+                android:icon="@drawable/baseline_logout_24"/>
+        </menu>
+    </item>
+
+</menu>

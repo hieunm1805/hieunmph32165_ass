@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFF0D4">
+
+    <ImageView
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:src="@drawable/logo_fpoly"
+        android:layout_marginBottom="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/baseline_edit_calendar_24" />
+        <TextView
+            android:layout_width="335dp"
+            android:layout_height="wrap_content"
+            android:text="Quản lý công việc "
+            android:textSize="30dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/baseline_info_24" />
+        <TextView
+            android:id="@+id/gt"
+            android:layout_width="335dp"
+            android:layout_height="wrap_content"
+            android:text="Giới thiệu "
+            android:textSize="30dp" />
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="khác"
+        android:layout_marginLeft="20dp"
+        android:textSize="30dp"
+        android:layout_marginBottom="40dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/baseline_settings_24" />
+        <TextView
+            android:layout_width="335dp"
+            android:layout_height="wrap_content"
+            android:text="Cài đặt "
+            android:textSize="30dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/baseline_logout_24" />
+        <TextView
+            android:layout_width="335dp"
+            android:layout_height="wrap_content"
+            android:text="Đăng xuất "
+            android:textSize="30dp" />
+    </LinearLayout>
+</LinearLayout>
