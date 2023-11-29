@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.hieunmph32165_ass.DAO.CongViecDAO;
 import com.example.hieunmph32165_ass.Fragment.Fragment1;
 import com.example.hieunmph32165_ass.Fragment.Fragment2;
 import com.example.hieunmph32165_ass.Fragment.Fragment3;
@@ -21,6 +22,7 @@ public class ManHinhChinh_Activity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
 
+    CongViecDAO congViecDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

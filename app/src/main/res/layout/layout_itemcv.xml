@@ -2,18 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/custom_item"
+    android:layout_margin="16dp"
+    android:elevation="5dp">
 
     <ImageView
         android:id="@+id/imgMinhHoa"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:src="@drawable/baseline_work_24"
+        android:src="@drawable/pajamas_work"
         android:layout_marginLeft="10dp" />
     <LinearLayout
         android:layout_toRightOf="@+id/imgMinhHoa"
         android:id="@+id/l1"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -40,7 +43,7 @@
         android:layout_below="@+id/l1"
         android:id="@+id/l2"
         android:layout_toRightOf="@+id/imgMinhHoa"
-        android:layout_marginLeft="20dp">
+        android:layout_marginLeft="10dp">
         <TextView
             android:id="@+id/ngaybatdau"
             android:layout_width="wrap_content"

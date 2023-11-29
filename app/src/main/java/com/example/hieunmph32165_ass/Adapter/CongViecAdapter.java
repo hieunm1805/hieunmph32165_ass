@@ -2,6 +2,7 @@ package com.example.hieunmph32165_ass.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -21,44 +22,46 @@ import com.example.hieunmph32165_ass.ManHinhChinh_Activity;
 import com.example.hieunmph32165_ass.R;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
-public class CongViecAdapter extends RecyclerView.Adapter<CongViecAdapter.ViewHolder>{
+public class CongViecAdapter extends RecyclerView.Adapter<CongViecAdapter.ViewHolder> {
     Context context;
     List<CongViecDTO> list;
+
+    CongViecDAO congViecDAO;
+    TextInputEditText edtTenCongViec, edtNoiDung, edtTrangThai, edtBatDau, edtKetThuc;
 
     public CongViecAdapter(Context context, List<CongViecDTO> list) {
         this.context = context;
         this.list = list;
+        notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = ((ManHinhChinh_Activity) context).getLayoutInflater();
-        View v = inflater.inflate(R.layout.layout_itemcv, parent, false);
-        ViewHolder objView = new ViewHolder(v);
-        return objView;
+        View v = LayoutInflater.from(context).inflate(R.layout.layout_itemcv, parent, false);
+        return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tencv.setText("Tên CV : " + list.get(position).getTenCV());
-        holder.trangthaicv.setText("Trạng thái : " + list.get(position).getTrangThai());
+        holder.tencv.setText(list.get(position).getTenCV());
+        holder.trangthaicv.setText(list.get(position).getTrangThai());
         holder.ngaybatdau.setText(list.get(position).getNgayBatDau());
         holder.ngayketthuc.setText(list.get(position).getNgayKetThuc());
 
         holder.imgedit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CongViecDTO dto = list.get(holder.getAdapterPosition());
-                Update(dto);
+                Update(holder.getAdapterPosition());
             }
         });
         holder.imgdelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CongViecDTO dto = list.get(holder.getAdapterPosition());
-                Delete(dto);
+                Delete(holder.getAdapterPosition());
             }
         });
     }
@@ -68,7 +71,7 @@ public class CongViecAdapter extends RecyclerView.Adapter<CongViecAdapter.ViewHo
         return list.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         TextView tencv, trangthaicv, ngaybatdau, ngayketthuc;
         ImageButton imgedit, imgdelete;
 
@@ -82,101 +85,96 @@ public class CongViecAdapter extends RecyclerView.Adapter<CongViecAdapter.ViewHo
             imgdelete = itemView.findViewById(R.id.btndelete);
         }
     }
-    void Update(CongViecDTO objcv) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-        View v = inflater.inflate(R.layout.layout_suacv, null);
-        builder.setView(v);
-        builder.setCancelable(false);
-        AlertDialog dialog = builder.create();
+    public void Update(int viTri) {
+        CongViecDTO congViecDTO = list.get(viTri);
+        Dialog dialog1 = new Dialog(context);
+        dialog1.setContentView(R.layout.layout_suacv);
+        edtTenCongViec = dialog1.findViewById(R.id.edtTenCongViec);
+        edtNoiDung = dialog1.findViewById(R.id.edtNoiDung);
+        edtTrangThai = dialog1.findViewById(R.id.edtTrangThai);
+        edtBatDau = dialog1.findViewById(R.id.edtBatDau);
+        edtKetThuc = dialog1.findViewById(R.id.edtKetThuc);
+        Button btn_Sua = dialog1.findViewById(R.id.btnSua_update);
+        Button btn_Huy = dialog1.findViewById(R.id.btnHuy_update);
 
-        TextInputEditText edtTenSua = v.findViewById(R.id.edtTenCongViec);
-        TextInputEditText edtNDSua = v.findViewById(R.id.edtNoiDung);
-        TextInputEditText edtTTSua = v.findViewById(R.id.edtTrangThai);
-        TextInputEditText edtBatdau = v.findViewById(R.id.edtBatDau);
-        TextInputEditText edtKetthuc = v.findViewById(R.id.edtKetThuc);
-        Button btnThoat = v.findViewById(R.id.btnHuy);
-        Button btnSua = v.findViewById(R.id.btnSua);
+        edtTenCongViec.setText(congViecDTO.getTenCV());
+        edtNoiDung.setText(congViecDTO.getNoiDung());
+        edtTrangThai.setText(congViecDTO.getTrangThai());
+        edtBatDau.setText(congViecDTO.getNgayBatDau());
+        edtKetThuc.setText(congViecDTO.getNgayKetThuc());
 
-        edtTenSua.setText(objcv.getTenCV());
-        edtNDSua.setText(objcv.getNoiDung());
-        edtTTSua.setText(objcv.getTrangThai());
-        edtBatdau.setText(objcv.getNgayBatDau());
-        edtKetthuc.setText(objcv.getNgayKetThuc());
-        btnSua.setOnClickListener(new View.OnClickListener() {
+        btn_Sua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = edtTenSua.getText().toString();
-                String content = edtNDSua.getText().toString();
-                String status = edtTTSua.getText().toString();
-                String start = edtBatdau.getText().toString();
-                String end = edtKetthuc.getText().toString();
-                if (name.isEmpty() || content.isEmpty() || start.isEmpty() || end.isEmpty() || status.isEmpty()) {
-                    Toast.makeText(context, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                CongViecDAO congViecDAO1 = new CongViecDAO(context);
-                CongViecDTO congViecDTO = new CongViecDTO();
-                congViecDTO.setId(objcv.getId());
-                congViecDTO.setTenCV(name);
-                congViecDTO.setNoiDung(content);
-                congViecDTO.setTrangThai(status);
-                congViecDTO.setNgayBatDau(start);
-                congViecDTO.setNgayKetThuc(end);
-                int kq = congViecDAO1.Update(congViecDTO);
-                if (kq > 0) {
-                    list.clear();
-                    list.addAll(congViecDAO1.getAll());
-                    notifyDataSetChanged();
-                    Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                } else {
-                    Toast.makeText(context, "Không update được", Toast.LENGTH_SHORT).show();
+                //bat dau chinh sua san pham
+                congViecDAO = new CongViecDAO(context);
+                if (validate() > 0) {
+                    congViecDTO.setTenCV(edtTenCongViec.getText().toString());
+                    congViecDTO.setNoiDung(edtNoiDung.getText().toString());
+                    congViecDTO.setTrangThai(edtTrangThai.getText().toString());
+                    congViecDTO.setNgayBatDau(edtBatDau.getText().toString());
+                    congViecDTO.setNgayKetThuc(edtKetThuc.getText().toString());
 
+                    if (congViecDAO.Update(congViecDTO) > 0) {
+                        getDS();
+                        dialog1.dismiss();
+                        Toast.makeText(context, "Sua thanh cong", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Sua khong thanh cong", Toast.LENGTH_SHORT).show();
+                    }
                 }
+
             }
         });
-        btnThoat.setOnClickListener(new View.OnClickListener() {
+
+        btn_Huy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                dialog1.dismiss();
             }
         });
-        dialog.show();
 
+        dialog1.show();
     }
-    public void Delete(CongViecDTO objcv) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Thông báo");
-        builder.setIcon(android.R.drawable.ic_delete);
-        builder.setMessage("Bạn có muốn xóa hay Không?");
-        builder.setCancelable(false);
-        builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                CongViecDAO congViecDAO1 = new CongViecDAO(context);
-                int kq = congViecDAO1.Delete(objcv);
-                if (kq > 0) {
-                    list.clear();
-                    list.addAll(congViecDAO1.getAll());
-                    notifyDataSetChanged();
-                    Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
 
-                } else {
-                    Toast.makeText(context, "Không xóa được", Toast.LENGTH_SHORT).show();
-                }
-                dialog.dismiss();
-            }
-        });
-        builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+    public void Delete(int viTri) {
+        new androidx.appcompat.app.AlertDialog.Builder(context)
+                .setTitle("Confirm")
+                .setMessage("Ban co muon xoa san pham ?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // xoa
+                        congViecDAO = new CongViecDAO(context);
+                        if (congViecDAO.Delete(String.valueOf(list.get(viTri).getId())) > 0) {
+                            getDS();
+                            Toast.makeText(context, "Xoa thanh cong", Toast.LENGTH_SHORT).show();
+                        }
+                        Toast.makeText(context, "Xoa that bai", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    private void getDS() {
+        list.clear();
+        list = congViecDAO.getAll();
+        notifyDataSetChanged();
+    }
+
+    public int validate() {
+        int check = 1;
+        if (edtTenCongViec.getText().length() == 0 ||
+                edtNoiDung.getText().length() == 0 ||
+                edtTrangThai.getText().length() == 0 ||
+                edtBatDau.getText().length() == 0 ||
+                edtKetThuc.getText().length() == 0) {
+            Toast.makeText(context, "Khong bo trong", Toast.LENGTH_SHORT).show();
+            check = -1;
+        }
+        return check;
     }
 }

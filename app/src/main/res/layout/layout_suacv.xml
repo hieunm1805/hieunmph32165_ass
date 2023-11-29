@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal">
         <Button
-            android:id="@+id/btnSua"
+            android:id="@+id/btnSua_update"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
             android:backgroundTint="#EE5959"
             android:layout_marginRight="50dp"/>
         <Button
-            android:id="@+id/btnHuy"
+            android:id="@+id/btnHuy_update"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

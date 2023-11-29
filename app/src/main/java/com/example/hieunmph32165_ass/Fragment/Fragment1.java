@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hieunmph32165_ass.DAO.CongViecDAO;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.hieunmph32165_ass.Adapter.CongViecAdapter;
@@ -29,6 +30,11 @@ public class Fragment1 extends Fragment {
     private FloatingActionButton floatAdd;
     private CongViecDAO congViecDAO;
 
+    List<CongViecDTO> list;
+    CongViecAdapter congViecAdapter;
+
+    EditText edtTencongViec, edtNoiDung, edtTrangThai, edtBatDau, edtKetThuc;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,12 +43,12 @@ public class Fragment1 extends Fragment {
 
         recyclerView = view.findViewById(R.id.rcCV);
         floatAdd = view.findViewById(R.id.addcv);
+        list = new ArrayList<>();
         congViecDAO = new CongViecDAO(getContext());
-        List<CongViecDTO> list = congViecDAO.getAll();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        CongViecAdapter adapter = new CongViecAdapter(getContext(), list);
-        recyclerView.setAdapter(adapter);
+
+        list = congViecDAO.getAll();
+        congViecAdapter = new CongViecAdapter(getContext(), list);
+        recyclerView.setAdapter(congViecAdapter);
 
         floatAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,37 +60,32 @@ public class Fragment1 extends Fragment {
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
-                EditText edtTencongViec = view1.findViewById(R.id.edtTenCongViec);
-                EditText edtNoiDung = view1.findViewById(R.id.edtNoiDung);
-                EditText edtTrangThai = view1.findViewById(R.id.edtTrangThai);
-                EditText edtBatDau = view1.findViewById(R.id.edtBatDau);
-                EditText edtKetThuc = view1.findViewById(R.id.edtKetThuc);
+                edtTencongViec = view1.findViewById(R.id.edtTenCongViec);
+                edtNoiDung = view1.findViewById(R.id.edtNoiDung);
+                edtTrangThai = view1.findViewById(R.id.edtTrangThai);
+                edtBatDau = view1.findViewById(R.id.edtBatDau);
+                edtKetThuc = view1.findViewById(R.id.edtKetThuc);
                 Button btnThoat = view1.findViewById(R.id.btnHuy);
                 Button btnThem = view1.findViewById(R.id.btnThem);
 
                 btnThem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String tencv = edtTencongViec.getText().toString();
-                        String noidung = edtNoiDung.getText().toString();
-                        String trangthai = edtTrangThai.getText().toString();
-                        String batdau = edtBatDau.getText().toString();
-                        String ketthuc = edtKetThuc.getText().toString();
-
-                        CongViecDTO congViecDTO = new CongViecDTO(tencv, noidung, trangthai, batdau, ketthuc);
-                        boolean check = congViecDAO.ADDROW(congViecDTO);
-                        if (check) {
-                            Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                            List<CongViecDTO> list = congViecDAO.getAll();
-                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-                            recyclerView.setLayoutManager(linearLayoutManager);
-                            CongViecAdapter adapter = new CongViecAdapter(getContext(), list);
-                            recyclerView.setAdapter(adapter);
-                            dialog.dismiss();
-                        } else {
-                            Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                        if (validate()>0){
+                            CongViecDTO congViecDTO = new CongViecDTO();
+                            congViecDTO.setTenCV(edtTencongViec.getText().toString());
+                            congViecDTO.setNoiDung(edtNoiDung.getText().toString());
+                            congViecDTO.setTrangThai(edtTrangThai.getText().toString());
+                            congViecDTO.setNgayBatDau(edtBatDau.getText().toString());
+                            congViecDTO.setNgayKetThuc(edtKetThuc.getText().toString());
+                            if (congViecDAO.ADDROW(congViecDTO)>0){
+                                Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                capNhat();
+                                dialog.dismiss();
+                            }else {
+                                Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                            }
                         }
-
                     }
                 });
                 btnThoat.setOnClickListener(new View.OnClickListener() {
@@ -93,14 +94,27 @@ public class Fragment1 extends Fragment {
                         dialog.dismiss();
                     }
                 });
-
             }
         });
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public int validate() {
+        int check = 1;
+        if (edtTencongViec.getText().length() == 0 ||
+                edtNoiDung.getText().length() == 0 ||
+                edtTrangThai.getText().length() == 0 ||
+                edtBatDau.getText().length() == 0 ||
+                edtKetThuc.getText().length() == 0) {
+            Toast.makeText(getContext(), "Khong bo trong", Toast.LENGTH_SHORT).show();
+            check = -1;
+        }
+        return check;
+    }
+
+    public void capNhat(){
+        list = congViecDAO.getAll();
+        congViecAdapter = new CongViecAdapter(getContext(), list);
+        recyclerView.setAdapter(congViecAdapter);
     }
 }
