@@ -5,9 +5,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -28,14 +30,12 @@ import java.util.List;
 public class CongViecAdapter extends RecyclerView.Adapter<CongViecAdapter.ViewHolder> {
     Context context;
     List<CongViecDTO> list;
-
     CongViecDAO congViecDAO;
     TextInputEditText edtTenCongViec, edtNoiDung, edtTrangThai, edtBatDau, edtKetThuc;
 
     public CongViecAdapter(Context context, List<CongViecDTO> list) {
         this.context = context;
         this.list = list;
-        notifyDataSetChanged();
     }
 
     @NonNull
@@ -90,6 +90,7 @@ public class CongViecAdapter extends RecyclerView.Adapter<CongViecAdapter.ViewHo
         CongViecDTO congViecDTO = list.get(viTri);
         Dialog dialog1 = new Dialog(context);
         dialog1.setContentView(R.layout.layout_suacv);
+        dialog1.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         edtTenCongViec = dialog1.findViewById(R.id.edtTenCongViec);
         edtNoiDung = dialog1.findViewById(R.id.edtNoiDung);
         edtTrangThai = dialog1.findViewById(R.id.edtTrangThai);
@@ -119,9 +120,9 @@ public class CongViecAdapter extends RecyclerView.Adapter<CongViecAdapter.ViewHo
                     if (congViecDAO.Update(congViecDTO) > 0) {
                         getDS();
                         dialog1.dismiss();
-                        Toast.makeText(context, "Sua thanh cong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(context, "Sua khong thanh cong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -141,7 +142,8 @@ public class CongViecAdapter extends RecyclerView.Adapter<CongViecAdapter.ViewHo
     public void Delete(int viTri) {
         new androidx.appcompat.app.AlertDialog.Builder(context)
                 .setTitle("Confirm")
-                .setMessage("Ban co muon xoa san pham ?")
+                .setIcon(R.drawable.baseline_delete_forever_24)
+                .setMessage("Bạn có chắc chắn muốn xoá công việc ?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbHelper extends SQLiteOpenHelper {
     static String DB_name = "quanly_Ungdung";
-    static int DB_VERSION = 5;
+    static int DB_VERSION = 1;
 
     public DbHelper(Context context)     {
         super(context,DB_name,null,DB_VERSION);
@@ -38,7 +38,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 ");";
         sqLiteDatabase.execSQL(sql_congviev);
 
-        String db_sql_congviec = "INSERT INTO CongViec (tenvc, noidung, trangthai, ngaybatdau, ngayketthuc) VALUES ('Thiết kế đồ hoạ', 'Thiết kế banner', 'Đang làm', '23/1/2021', '30/11/2027')," +
+        String db_sql_congviec = "INSERT INTO CongViec (tencv, noidung, trangthai, ngaybatdau, ngayketthuc) VALUES ('Thiết kế đồ hoạ', 'Thiết kế banner', 'Đang làm', '23/1/2021', '30/11/2027')," +
                 "('Giám đốc điều hành', 'Quản lý dự án', 'Đang làm', '23/1/2020', '18/2/2030')," +
                 "('Nhân viên kho', 'Dọn kho', 'Đang làm', '23/1/2022', '30/11/2025')";
         sqLiteDatabase.execSQL(db_sql_congviec);

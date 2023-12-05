@@ -1,9 +1,12 @@
 package com.example.hieunmph32165_ass.Fragment;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -28,11 +31,10 @@ import com.example.hieunmph32165_ass.R;
 public class Fragment1 extends Fragment {
     private RecyclerView recyclerView;
     private FloatingActionButton floatAdd;
-    private CongViecDAO congViecDAO;
+    CongViecDAO congViecDAO;
 
     List<CongViecDTO> list;
     CongViecAdapter congViecAdapter;
-
     EditText edtTencongViec, edtNoiDung, edtTrangThai, edtBatDau, edtKetThuc;
 
     @Nullable
@@ -40,12 +42,13 @@ public class Fragment1 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.layout_listcv, container, false);
-
         recyclerView = view.findViewById(R.id.rcCV);
         floatAdd = view.findViewById(R.id.addcv);
         list = new ArrayList<>();
         congViecDAO = new CongViecDAO(getContext());
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
         list = congViecDAO.getAll();
         congViecAdapter = new CongViecAdapter(getContext(), list);
         recyclerView.setAdapter(congViecAdapter);
@@ -53,6 +56,7 @@ public class Fragment1 extends Fragment {
         floatAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CongViecDTO congViecDTO = new CongViecDTO();
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 LayoutInflater inflater1 = getLayoutInflater();
                 View view1 = inflater1.inflate(R.layout.layout_themcv, null);
@@ -72,7 +76,6 @@ public class Fragment1 extends Fragment {
                     @Override
                     public void onClick(View v) {
                         if (validate()>0){
-                            CongViecDTO congViecDTO = new CongViecDTO();
                             congViecDTO.setTenCV(edtTencongViec.getText().toString());
                             congViecDTO.setNoiDung(edtNoiDung.getText().toString());
                             congViecDTO.setTrangThai(edtTrangThai.getText().toString());
@@ -80,6 +83,7 @@ public class Fragment1 extends Fragment {
                             congViecDTO.setNgayKetThuc(edtKetThuc.getText().toString());
                             if (congViecDAO.ADDROW(congViecDTO)>0){
                                 Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                congViecAdapter.notifyDataSetChanged();
                                 capNhat();
                                 dialog.dismiss();
                             }else {
@@ -116,5 +120,10 @@ public class Fragment1 extends Fragment {
         list = congViecDAO.getAll();
         congViecAdapter = new CongViecAdapter(getContext(), list);
         recyclerView.setAdapter(congViecAdapter);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 }

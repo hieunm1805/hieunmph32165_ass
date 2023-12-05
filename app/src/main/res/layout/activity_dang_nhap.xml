@@ -4,95 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:background="#FFF0D4"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".DangNhap_Activity">
 
     <ImageView
         android:layout_width="300dp"
         android:layout_height="100dp"
-        android:src="@drawable/logo_fpoly"/>
+        android:src="@drawable/logo_fpoly" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginTop="50dp"
 
-        android:paddingHorizontal="30dp"
-        android:layout_marginTop="50dp">
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Username:"
+            android:textSize="20dp"
             android:textStyle="bold"
-            android:textSize="20dp"/>
+            android:layout_marginLeft="10dp"/>
+
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/ed_username_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="20dp"
-            android:padding="20dp"
-            android:background="@drawable/custom_edittext"/>
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_edittext"
+            android:elevation="5dp"
+            android:paddingVertical="20dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="30dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Password:"
+            android:textSize="20dp"
             android:textStyle="bold"
-            android:textSize="20dp"/>
+            android:layout_marginLeft="10dp"/>
+
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/ed_password_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="20dp"
-            android:padding="20dp"
-            android:background="@drawable/custom_edittext"/>
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_edittext"
+            android:elevation="5dp"
+
+            android:paddingVertical="20dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đăng nhập"
+            android:background="@drawable/custom_button_register"
+            android:elevation="20dp"
             android:paddingHorizontal="30dp"
             android:paddingVertical="15dp"
-            android:elevation="20dp"
+            android:text="Đăng nhập"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:background="@drawable/custom_button_login"/>
+            android:textStyle="bold" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đăng ký"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/custom_button_login"
+            android:elevation="20dp"
             android:paddingHorizontal="40dp"
             android:paddingVertical="15dp"
-            android:elevation="20dp"
+            android:text="Đăng ký"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:background="@drawable/custom_button_register"
-            android:layout_marginLeft="30dp"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/tv_forgotPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="forgot password?"
         android:layout_marginTop="30dp"
-        android:textColor="#0097B8"
-        android:layout_marginStart="125dp"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="30dp"
+        android:text="forgot password?"
+        android:textColor="#0097B8" />
 </LinearLayout>

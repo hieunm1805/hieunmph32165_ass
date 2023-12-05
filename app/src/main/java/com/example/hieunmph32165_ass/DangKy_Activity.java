@@ -35,6 +35,8 @@ public class DangKy_Activity extends AppCompatActivity {
         btnDangKy = findViewById(R.id.btn_dangKy);
         btnBack = findViewById(R.id.btn_thoatDangKy);
 
+        userDAO = new UserDAO(this);
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

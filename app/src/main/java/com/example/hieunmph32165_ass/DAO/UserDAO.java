@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.hieunmph32165_ass.Database.DbHelper;
 
-import com.example.hieunmph32165_ass.Database.DbHelper;
-
 public class UserDAO {
     DbHelper myDbHelper;
     SQLiteDatabase db;
@@ -34,12 +32,20 @@ public class UserDAO {
     }
     public boolean checkLogin(String username, String password) {
         db = myDbHelper.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM User WHERE user =? and pass = ?",
+        Cursor c = db.rawQuery("SELECT * FROM User WHERE username =? and password = ?",
                 new String[]{username, password});
-        if (c.getCount() > 0) {
-            return true;
-        } else {
-            return false;
+        return c.getCount() > 0;
+
+    }
+
+    public String fotgotPass(String email){
+        db = myDbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT password FROM User WHERE email = ?", new String[]{email});
+        if (cursor.getCount()>0){
+            cursor.moveToFirst();
+            return cursor.getString(0);
+        }else {
+            return "Mật khẩu không tồn tại";
         }
     }
 }

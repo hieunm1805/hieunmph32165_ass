@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lấy lại mật khẩu"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/ed_sendEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_edittext"
+        android:padding="16dp"
+        android:layout_marginTop="10dp"
+        android:hint="Nhập email"
+        android:elevation="5dp"
+        android:layout_marginHorizontal="16dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_sendEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="10dp"
+        android:text="Gửi mật khẩu"
+        android:textColor="@color/white"
+        android:background="@drawable/custom_button_register"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="10dp"
+        android:text="Huỷ"
+        android:textColor="@color/white"
+        android:background="@drawable/custom_button_login"
+        android:layout_marginBottom="16dp"
+        />
+</LinearLayout>
