@@ -80,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Thêm"
-            android:backgroundTint="#EE5959"
+            android:backgroundTint="#9CBD56"
             android:layout_marginRight="50dp"/>
         <Button
             android:id="@+id/btnHuy"
@@ -88,6 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Huỷ"
-            android:backgroundTint="#9CBD56"/>
+            android:backgroundTint="#EE5959"
+            />
     </LinearLayout>
 </LinearLayout>
